@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --red:#D52B1E;--red-dark:#A81E13;--red-light:#F5E6E5;
+  --navy:#0A1628;--navy-mid:#1A2E4A;
+  --gold:#C8960C;--gold-light:#FFF8E6;
+  --white:#FFFFFF;--off:#F8F7F4;--gray:#6B7280;--border:#E5E0D8;
+  --success:#1A7A4A;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--navy)}
+
+/* NAV */
+nav{background:var(--navy);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100}
+.nav-brand{display:flex;align-items:center;gap:10px;cursor:pointer}
+.nav-maple{width:32px;height:32px;fill:var(--red)}
+.nav-title{color:white;font-size:1rem;font-weight:600;line-height:1.2}
+.nav-title span{color:#CBD5E1;font-size:.75rem;font-weight:400;display:block}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-links a{color:#CBD5E1;text-decoration:none;font-size:.875rem;cursor:pointer;transition:color .2s}
+.nav-links a:hover{color:white}
+.nav-cta{background:var(--red);color:white!important;padding:.4rem 1rem;border-radius:6px;font-weight:500!important}
+.nav-cta:hover{background:var(--red-dark)!important}
+.admin-btn{background:none;border:1px solid #475569;color:#94A3B8;padding:.3rem .75rem;border-radius:6px;font-size:.75rem;cursor:pointer;font-family:inherit}
+.admin-btn:hover{border-color:#94A3B8;color:white}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 60%,#1A3A5C 100%);padding:5rem 2rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;border-radius:50%;background:rgba(213,43,30,.08);pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-60px;left:-60px;width:300px;height:300px;border-radius:50%;background:rgba(200,150,12,.06);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(213,43,30,.15);border:1px solid rgba(213,43,30,.3);color:#FCA5A5;padding:.35rem 1rem;border-radius:100px;font-size:.75rem;font-weight:500;margin-bottom:1.5rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);color:white;line-height:1.15;margin-bottom:1rem;max-width:800px;margin-left:auto;margin-right:auto}
+.hero h1 em{color:#FCA5A5;font-style:normal}
+.hero p{color:#94A3B8;font-size:1.1rem;max-width:600px;margin:0 auto 2.5rem;line-height:1.7}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--red);color:white;padding:.85rem 2rem;border-radius:8px;border:none;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary:hover{background:var(--red-dark);transform:translateY(-1px)}
+.btn-outline{background:transparent;color:white;padding:.85rem 2rem;border-radius:8px;border:1px solid rgba(255,255,255,.25);font-family:inherit;font-size:1rem;cursor:pointer;transition:all .2s}
+.btn-outline:hover{background:rgba(255,255,255,.08)}
+.hero-stats{display:flex;justify-content:center;gap:3rem;margin-top:4rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,.1);flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:white;font-weight:700}
+.stat-label{font-size:.75rem;color:#94A3B8;margin-top:.25rem}
+
+/* TRUST BAR */
+.trust-bar{background:var(--white);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--gray);font-weight:500}
+.trust-icon{color:var(--success);font-size:1rem}
+
+/* SECTIONS */
+.section{padding:4rem 2rem;max-width:1100px;margin:0 auto}
+.section-label{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:.75rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.75rem,3vw,2.5rem);color:var(--navy);line-height:1.2;margin-bottom:1rem}
+.section-sub{color:var(--gray);font-size:1rem;line-height:1.7;max-width:600px}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.5rem;margin-top:2.5rem}
+.service-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:1.75rem;transition:all .25s;cursor:pointer}
+.service-card:hover{border-color:var(--red);box-shadow:0 8px 32px rgba(213,43,30,.1);transform:translateY(-2px)}
+.service-icon{width:48px;height:48px;background:var(--red-light);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1rem}
+.service-card h3{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:.5rem}
+.service-card p{font-size:.875rem;color:var(--gray);line-height:1.6}
+.service-price{font-size:1.25rem;font-weight:700;color:var(--red);margin-top:.75rem}
+
+/* PRICING */
+.pricing-section{background:var(--navy);padding:4rem 2rem}
+.pricing-inner{max-width:1100px;margin:0 auto}
+.pricing-section .section-label{color:#FCA5A5}
+.pricing-section .section-title{color:white}
+.pricing-section .section-sub{color:#94A3B8}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;margin-top:2.5rem}
+.price-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:2rem;position:relative;transition:all .25s}
+.price-card.featured{background:var(--red);border-color:var(--red)}
+.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:.7rem;font-weight:700;padding:.25rem .75rem;border-radius:100px;white-space:nowrap;letter-spacing:.05em}
+.price-card h3{color:white;font-size:1rem;font-weight:600;margin-bottom:.5rem}
+.price-card .desc{font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:1.25rem;line-height:1.5}
+.price-amount{font-family:'Playfair Display',serif;font-size:2.5rem;color:white;font-weight:700}
+.price-amount sup{font-size:1rem;vertical-align:top;margin-top:.5rem;display:inline-block}
+.price-currency{font-size:.8rem;color:rgba(255,255,255,.6);margin-bottom:1.25rem}
+.price-features{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0}
+.price-features li{font-size:.8rem;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:.5rem}
+.price-features li::before{content:'✓';color:#6EE7B7;font-weight:700;font-size:.9rem}
+.btn-order{width:100%;background:white;color:var(--navy);padding:.75rem;border-radius:8px;border:none;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;margin-top:1rem}
+.btn-order:hover{background:#F1F5F9}
+.price-card.featured .btn-order{background:var(--navy)}
+.price-card.featured .btn-order{color:white}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-top:2.5rem;position:relative}
+.step{text-align:center}
+.step-num{width:52px;height:52px;background:var(--red);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;margin:0 auto 1rem}
+.step h3{font-size:.95rem;font-weight:600;color:var(--navy);margin-bottom:.5rem}
+.step p{font-size:.825rem;color:var(--gray);line-height:1.6}
+
+/* FAQ */
+.faq-section{background:var(--white)}
+.faq-wrap{max-width:800px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border);padding:1.25rem 0}
+.faq-q{font-weight:500;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:.95rem}
+.faq-q span{color:var(--red);font-size:1.2rem;transition:transform .2s}
+.faq-a{font-size:.875rem;color:var(--gray);line-height:1.7;margin-top:.75rem;display:none}
+.faq-a.open{display:block}
+.faq-q.open span{transform:rotate(45deg)}
+
+/* CTA BANNER */
+.cta-section{background:var(--red);padding:4rem 2rem;text-align:center}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:2rem;color:white;margin-bottom:.75rem}
+.cta-section p{color:rgba(255,255,255,.8);margin-bottom:2rem;font-size:1rem}
+.btn-white{background:white;color:var(--red);padding:.85rem 2rem;border-radius:8px;border:none;font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-white:hover{background:#F1F5F9;transform:translateY(-1px)}
+
+/* FOOTER */
+footer{background:var(--navy);color:#94A3B8;padding:3rem 2rem 1.5rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem;max-width:1100px;margin:0 auto;padding-bottom:2rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-brand{font-family:'Playfair Display',serif;font-size:1.1rem;color:white;margin-bottom:.75rem}
+.footer-desc{font-size:.8rem;line-height:1.6}
+.footer-col h4{font-size:.8rem;font-weight:600;color:white;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
+.footer-col a{display:block;font-size:.8rem;color:#94A3B8;text-decoration:none;margin-bottom:.4rem;cursor:pointer}
+.footer-col a:hover{color:white}
+.footer-bottom{max-width:1100px;margin:1.5rem auto 0;display:flex;justify-content:space-between;font-size:.75rem;flex-wrap:gap}
+
+/* ORDER MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(10,22,40,.85);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal{background:white;border-radius:16px;padding:2rem;width:100%;max-width:520px;max-height:90vh;overflow-y:auto}
+.modal h2{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--navy);margin-bottom:.5rem}
+.modal-close{float:right;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--gray)}
+.form-group{margin-bottom:1rem}
+.form-group label{display:block;font-size:.8rem;font-weight:500;color:var(--navy);margin-bottom:.35rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:.6rem .85rem;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:.9rem;outline:none;color:var(--navy)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--red)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.submit-btn{width:100%;background:var(--red);color:white;padding:.85rem;border-radius:8px;border:none;font-family:inherit;font-size:1rem;font-weight:600;cursor:pointer;margin-top:.5rem}
+.submit-btn:hover{background:var(--red-dark)}
+.success-msg{background:#ECFDF5;border:1px solid #6EE7B7;border-radius:8px;padding:1rem;text-align:center;color:var(--success)}
+
+/* ADMIN PANEL */
+.admin-overlay{position:fixed;inset:0;background:rgba(10,22,40,.9);z-index:300;display:flex;align-items:center;justify-content:center;padding:1rem}
+.admin-panel{background:#0F172A;border-radius:16px;width:100%;max-width:900px;max-height:92vh;overflow:hidden;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.1)}
+.admin-header{background:#1E293B;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08)}
+.admin-header h2{color:white;font-size:1rem;font-weight:600}
+.admin-close{background:none;border:none;color:#94A3B8;font-size:1.25rem;cursor:pointer}
+.admin-body{display:flex;flex:1;overflow:hidden}
+.admin-sidebar{width:180px;background:#0A1628;padding:1rem;border-right:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;gap:.25rem}
+.admin-nav-item{padding:.5rem .75rem;border-radius:6px;font-size:.8rem;color:#94A3B8;cursor:pointer;transition:all .2s}
+.admin-nav-item:hover{background:rgba(255,255,255,.06);color:white}
+.admin-nav-item.active{background:rgba(213,43,30,.2);color:#FCA5A5}
+.admin-content{flex:1;overflow-y:auto;padding:1.5rem}
+.admin-section-title{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#64748B;margin-bottom:1.25rem}
+.admin-field{margin-bottom:1rem}
+.admin-field label{display:block;font-size:.75rem;color:#94A3B8;margin-bottom:.35rem}
+.admin-field input,.admin-field textarea,.admin-field select{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:.5rem .75rem;color:white;font-family:inherit;font-size:.85rem;outline:none}
+.admin-field input:focus,.admin-field textarea:focus{border-color:rgba(213,43,30,.5)}
+.admin-field textarea{resize:vertical;min-height:80px}
+.admin-save{background:var(--red);color:white;padding:.5rem 1.25rem;border-radius:6px;border:none;font-family:inherit;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .2s}
+.admin-save:hover{background:var(--red-dark)}
+.admin-saved{background:#064E3B;color:#6EE7B7;padding:.5rem 1rem;border-radius:6px;font-size:.8rem;display:inline-block;margin-left:.75rem}
+.price-admin-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:1rem;margin-bottom:.75rem}
+.price-admin-card label{display:block;font-size:.7rem;color:#64748B;margin-bottom:.25rem}
+.price-admin-card h4{color:#94A3B8;font-size:.8rem;margin-bottom:.75rem}
+.img-preview{width:100%;height:120px;object-fit:cover;border-radius:6px;margin-bottom:.5rem;border:1px solid rgba(255,255,255,.1)}
+.img-url-input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:.4rem .75rem;color:white;font-family:inherit;font-size:.8rem;outline:none}
+.color-row{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+.color-swatch{width:32px;height:32px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .2s}
+.color-swatch.active{border-color:white;transform:scale(1.15)}
+
+/* LOGIN */
+.login-box{background:#1E293B;border-radius:12px;padding:2rem;width:100%;max-width:360px;border:1px solid rgba(255,255,255,.08)}
+.login-box h2{color:white;font-size:1.1rem;margin-bottom.5rem;font-weight:600}
+.login-box p{color:#64748B;font-size:.8rem;margin-bottom:1.25rem}
+
+/* HIDDEN */
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- PUBLIC SITE -->
+<div id="site">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand" onclick="scrollTo('#hero')">
+    <svg class="nav-maple" viewBox="0 0 100 100"><path d="M50 5 L58 28 L82 20 L72 40 L95 45 L78 58 L85 80 L65 70 L60 92 L50 75 L40 92 L35 70 L15 80 L22 58 L5 45 L28 40 L18 20 L42 28 Z" fill="#D52B1E"/></svg>
+    <div class="nav-title" id="nav-site-name">GCMS Notes Canada<span id="nav-tagline">Fast • Reliable • Official</span></div>
+  </div>
+  <div class="nav-links">
+    <a onclick="scrollTo('#services')">Services</a>
+    <a onclick="scrollTo('#pricing')">Pricing</a>
+    <a onclick="scrollTo('#how-it-works')">How It Works</a>
+    <a onclick="scrollTo('#faq')">FAQ</a>
+    <a class="nav-cta" onclick="openOrder()">Order Now</a>
+  </div>
+  <button class="admin-btn" onclick="openAdmin()">&#9881; Admin</button>
+</nav>
+
+<!-- HERO -->
+<div id="hero" class="hero">
+  <div class="hero-badge">&#127809; Serving Canadians & Immigration Applicants</div>
+  <h1 id="hero-title">Get Your <em>Canada GCMS Notes</em><br>Fast & Professionally</h1>
+  <p id="hero-sub">We help immigration applicants obtain their Global Case Management System (GCMS) notes from IRCC. Understand your file, track your application, and make informed decisions.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="openOrder()">Order GCMS Notes</button>
+    <button class="btn-outline" onclick="scrollTo('#how-it-works')">How It Works</button>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num" id="stat1">10,000+</div><div class="stat-label">Orders Completed</div></div>
+    <div class="stat"><div class="stat-num" id="stat2">48hrs</div><div class="stat-label">Average Delivery</div></div>
+    <div class="stat"><div class="stat-num" id="stat3">99%</div><div class="stat-label">Success Rate</div></div>
+    <div class="stat"><div class="stat-num" id="stat4">24/7</div><div class="stat-label">Customer Support</div></div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">✓</span> Certified ATIP Consultants</div>
+  <div class="trust-item"><span class="trust-icon">✓</span> Secure & Confidential</div>
+  <div class="trust-item"><span class="trust-icon">✓</span> Government-Compliant Process</div>
+  <div class="trust-item"><span class="trust-icon">✓</span> Money-Back Guarantee</div>
+  <div class="trust-item"><span class="trust-icon">✓</span> 5,000+ Reviews</div>
+</div>
+
+<!-- SERVICES -->
+<div id="services" style="background:var(--white);padding:1rem 0">
+<div class="section">
+  <div class="section-label">Our Services</div>
+  <h2 class="section-title" id="services-title">Everything You Need to Understand Your Immigration File</h2>
+  <p class="section-sub" id="services-sub">We provide a complete range of ATIP and GCMS services to help you navigate the Canadian immigration system.</p>
+  <div class="services-grid" id="services-grid">
+    <div class="service-card">
+      <div class="service-icon">📄</div>
+      <h3 id="s1-title">GCMS Notes Request</h3>
+      <p id="s1-desc">Full GCMS notes retrieval from IRCC including all officer notes, processing history, and application status details.</p>
+      <div class="service-price" id="s1-price">From $49 CAD</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📋</div>
+      <h3 id="s2-title">ATIP Request</h3>
+      <p id="s2-desc">Access to Information and Privacy requests to obtain your complete immigration file from CBSA or IRCC.</p>
+      <div class="service-price" id="s2-price">From $69 CAD</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔍</div>
+      <h3 id="s3-title">File Review & Analysis</h3>
+      <p id="s3-desc">Expert review of your GCMS notes with a detailed analysis report explaining what the notes mean for your case.</p>
+      <div class="service-price" id="s3-price">From $99 CAD</div>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚡</div>
+      <h3 id="s4-title">Express Processing</h3>
+      <p id="s4-desc">Priority handling of your GCMS notes request with faster processing and dedicated support throughout.</p>
+      <div class="service-price" id="s4-price">From $89 CAD</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- PRICING -->
+<div id="pricing" class="pricing-section">
+<div class="pricing-inner">
+  <div class="section-label">Pricing Plans</div>
+  <h2 class="section-title" id="pricing-title">Simple, Transparent Pricing</h2>
+  <p class="section-sub" id="pricing-sub">Choose the plan that fits your needs. No hidden fees. All prices in Canadian dollars.</p>
+  <div class="pricing-grid" id="pricing-grid">
+    <div class="price-card">
+      <h3 id="p1-name">Basic</h3>
+      <p class="desc" id="p1-desc">Perfect for individuals needing their basic GCMS notes</p>
+      <div class="price-amount"><sup>$</sup><span id="p1-price">49</span></div>
+      <div class="price-currency">CAD + applicable taxes</div>
+      <ul class="price-features">
+        <li id="p1-f1">Standard GCMS notes request</li>
+        <li id="p1-f2">5–10 business days delivery</li>
+        <li id="p1-f3">Email delivery of notes</li>
+        <li id="p1-f4">Basic tracking updates</li>
+      </ul>
+      <button class="btn-order" onclick="openOrder('Basic')">Order Basic</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">MOST POPULAR</div>
+      <h3 id="p2-name">Standard</h3>
+      <p class="desc" id="p2-desc">Our most popular option — includes notes + expert review</p>
+      <div class="price-amount"><sup>$</sup><span id="p2-price">99</span></div>
+      <div class="price-currency">CAD + applicable taxes</div>
+      <ul class="price-features">
+        <li id="p2-f1">Full GCMS notes request</li>
+        <li id="p2-f2">3–5 business days delivery</li>
+        <li id="p2-f3">Expert file analysis report</li>
+        <li id="p2-f4">Priority email support</li>
+        <li id="p2-f5">Status tracking dashboard</li>
+      </ul>
+      <button class="btn-order" onclick="openOrder('Standard')">Order Standard</button>
+    </div>
+    <div class="price-card">
+      <h3 id="p3-name">Express</h3>
+      <p class="desc" id="p3-desc">Fastest turnaround with comprehensive support</p>
+      <div class="price-amount"><sup>$</sup><span id="p3-price">149</span></div>
+      <div class="price-currency">CAD + applicable taxes</div>
+      <ul class="price-features">
+        <li id="p3-f1">Expedited GCMS + ATIP request</li>
+        <li id="p3-f2">24–48 hour processing start</li>
+        <li id="p3-f3">Detailed analysis + consultation call</li>
+        <li id="p3-f4">Dedicated case manager</li>
+        <li id="p3-f5">Phone & email support</li>
+      </ul>
+      <button class="btn-order" onclick="openOrder('Express')">Order Express</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div id="how-it-works">
+<div class="section">
+  <div class="section-label">Process</div>
+  <h2 class="section-title" id="hiw-title">How It Works</h2>
+  <p class="section-sub" id="hiw-sub">Our simple 4-step process gets you your GCMS notes quickly and securely.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><h3 id="step1-title">Place Your Order</h3><p id="step1-desc">Fill out our secure online form with your name, UCI/Application number, and select your service package.</p></div>
+    <div class="step"><div class="step-num">2</div><h3 id="step2-title">Provide Authorization</h3><p id="step2-desc">We send you an authorization form (IMM 5744) to sign electronically so we can request on your behalf.</p></div>
+    <div class="step"><div class="step-num">3</div><h3 id="step3-title">We Submit to IRCC</h3><p id="step3-desc">Our team submits your ATIP request directly to IRCC's Privacy Office and monitors the status.</p></div>
+    <div class="step"><div class="step-num">4</div><h3 id="step4-title">Receive Your Notes</h3><p id="step4-desc">Once received from IRCC, we deliver your GCMS notes securely to your email within the promised timeframe.</p></div>
+  </div>
+</div>
+</div>
+
+<!-- FAQ -->
+<div id="faq" class="faq-section" style="padding:1rem 0">
+<div class="section">
+  <div class="section-label">FAQ</div>
+  <h2 class="section-title" id="faq-title">Frequently Asked Questions</h2>
+  <div class="faq-wrap" id="faq-wrap" style="margin-top:2rem">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What are GCMS notes? <span>+</span></div>
+      <div class="faq-a">GCMS (Global Case Management System) notes are internal records that IRCC immigration officers create while processing your immigration application. They contain detailed information about your case history, officer comments, and decision-making process.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Who can request GCMS notes? <span>+</span></div>
+      <div class="faq-a">Any individual who has or had an immigration application in Canada can request their own GCMS notes. This includes PR applicants, temporary residents, refugee claimants, and Canadian citizens. You can also request notes for a family member with their written consent.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How long does it take to receive GCMS notes? <span>+</span></div>
+      <div class="faq-a">IRCC is legally required to respond to ATIP requests within 30 days (with possible extensions). In practice, processing typically takes 30–90 days. Our Express plan prioritizes your submission and provides faster initiation.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is my personal information safe? <span>+</span></div>
+      <div class="faq-a">Absolutely. We take privacy very seriously. All information is encrypted, stored securely, and used only to process your ATIP request. We comply with Canada's Privacy Act and PIPEDA regulations.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What information do I need to provide? <span>+</span></div>
+      <div class="faq-a">You'll need to provide your full legal name, date of birth, UCI number (if available), email address, and a copy of your government-issued ID. This information is required by IRCC to process your request.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Do you offer refunds? <span>+</span></div>
+      <div class="faq-a">Yes. If we are unable to obtain your GCMS notes for any reason, we offer a full refund. Our money-back guarantee ensures you're protected. Please review our refund policy for complete details.</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2 id="cta-title">Ready to Know Where Your Application Stands?</h2>
+  <p id="cta-sub">Join thousands of applicants who've used our service to understand their immigration file.</p>
+  <button class="btn-white" onclick="openOrder()">Order GCMS Notes Today</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">GCMS Notes Canada</div>
+      <p class="footer-desc" id="footer-desc">Professional ATIP and GCMS notes retrieval services for Canadian immigration applicants. Fast, secure, and reliable.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <a>GCMS Notes</a>
+      <a>ATIP Requests</a>
+      <a>File Analysis</a>
+      <a>Express Service</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a>About Us</a>
+      <a>Contact</a>
+      <a>Privacy Policy</a>
+      <a>Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span id="footer-copy">© 2024 GCMS Notes Canada. All rights reserved.</span>
+    <span>Not affiliated with the Government of Canada</span>
+  </div>
+</footer>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay hidden" id="order-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeOrder()">×</button>
+    <h2>Order GCMS Notes</h2>
+    <p style="color:var(--gray);font-size:.85rem;margin-bottom:1.25rem">Selected plan: <strong id="selected-plan">Standard</strong></p>
+    <div id="order-form-wrap">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="John"></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Smith"></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="john@example.com"></div>
+      <div class="form-group"><label>Phone (optional)</label><input type="tel" placeholder="+1 (555) 000-0000"></div>
+      <div class="form-group"><label>UCI / Application Number</label><input type="text" placeholder="e.g. 1234567890"></div>
+      <div class="form-group"><label>Service Package</label>
+        <select id="order-pkg">
+          <option>Basic — $49 CAD</option>
+          <option>Standard — $99 CAD</option>
+          <option>Express — $149 CAD</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Special Instructions (optional)</label><textarea rows="3" placeholder="Any details about your case..."></textarea></div>
+      <button class="submit-btn" onclick="submitOrder()">Submit Order & Proceed to Payment</button>
+    </div>
+    <div id="order-success" class="success-msg hidden">
+      ✓ Order submitted successfully! We'll contact you within 24 hours with next steps.
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div class="admin-overlay hidden" id="admin-login">
+  <div class="login-box">
+    <h2>Admin Access</h2>
+    <p>Enter your admin credentials to manage the website.</p>
+    <div style="margin-bottom:.75rem">
+      <label style="display:block;font-size:.75rem;color:#94A3B8;margin-bottom:.3rem">Password</label>
+      <input type="password" id="admin-pw" placeholder="Enter admin password" style="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:.6rem .85rem;color:white;font-family:inherit;font-size:.9rem;outline:none">
+    </div>
+    <div id="pw-error" style="color:#FCA5A5;font-size:.75rem;margin-bottom:.5rem;display:none">Incorrect password. Try: admin123</div>
+    <button onclick="checkAdminLogin()" style="width:100%;background:var(--red);color:white;padding:.7rem;border-radius:6px;border:none;font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer;margin-bottom:.75rem">Login</button>
+    <button onclick="closeAdminLogin()" style="width:100%;background:none;border:1px solid rgba(255,255,255,.1);color:#94A3B8;padding:.6rem;border-radius:6px;font-family:inherit;font-size:.85rem;cursor:pointer">Cancel</button>
+    <p style="color:#475569;font-size:.7rem;margin-top:.75rem;text-align:center">Demo password: <code style="background:rgba(255,255,255,.06);padding:.15rem .4rem;border-radius:3px;color:#94A3B8">admin123</code></p>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-overlay hidden" id="admin-panel">
+  <div class="admin-panel">
+    <div class="admin-header">
+      <h2>&#9881; Website Admin Panel</h2>
+      <button class="admin-close" onclick="closeAdminPanel()">×</button>
+    </div>
+    <div class="admin-body">
+      <div class="admin-sidebar">
+        <div class="admin-nav-item active" onclick="adminTab('hero')">Hero Section</div>
+        <div class="admin-nav-item" onclick="adminTab('services')">Services</div>
+        <div class="admin-nav-item" onclick="adminTab('pricing')">Pricing</div>
+        <div class="admin-nav-item" onclick="adminTab('process')">How It Works</div>
+        <div class="admin-nav-item" onclick="adminTab('faq')">FAQ</div>
+        <div class="admin-nav-item" onclick="adminTab('footer')">Footer</div>
+        <div class="admin-nav-item" onclick="adminTab('settings')">Site Settings</div>
+      </div>
+      <div class="admin-content" id="admin-content">
+        <!-- loaded by JS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ---- STATE ----
+let siteData = {
+  hero:{title:"Get Your <em>Canada GCMS Notes</em><br>Fast & Professionally",sub:"We help immigration applicants obtain their Global Case Management System (GCMS) notes from IRCC. Understand your file, track your application, and make informed decisions.",stat1:"10,000+",stat2:"48hrs",stat3:"99%",stat4:"24/7"},
+  services:{title:"Everything You Need to Understand Your Immigration File",sub:"We provide a complete range of ATIP and GCMS services to help you navigate the Canadian immigration system.",s1t:"GCMS Notes Request",s1d:"Full GCMS notes retrieval from IRCC including all officer notes, processing history, and application status details.",s1p:"From $49 CAD",s2t:"ATIP Request",s2d:"Access to Information and Privacy requests to obtain your complete immigration file from CBSA or IRCC.",s2p:"From $69 CAD",s3t:"File Review & Analysis",s3d:"Expert review of your GCMS notes with a detailed analysis report explaining what the notes mean for your case.",s3p:"From $99 CAD",s4t:"Express Processing",s4d:"Priority handling of your GCMS notes request with faster processing and dedicated support throughout.",s4p:"From $89 CAD"},
+  pricing:{title:"Simple, Transparent Pricing",sub:"Choose the plan that fits your needs. No hidden fees. All prices in Canadian dollars.",p1n:"Basic",p1d:"Perfect for individuals needing their basic GCMS notes",p1p:"49",p1f1:"Standard GCMS notes request",p1f2:"5–10 business days delivery",p1f3:"Email delivery of notes",p1f4:"Basic tracking updates",p2n:"Standard",p2d:"Our most popular option — includes notes + expert review",p2p:"99",p2f1:"Full GCMS notes request",p2f2:"3–5 business days delivery",p2f3:"Expert file analysis report",p2f4:"Priority email support",p2f5:"Status tracking dashboard",p3n:"Express",p3d:"Fastest turnaround with comprehensive support",p3p:"149",p3f1:"Expedited GCMS + ATIP request",p3f2:"24–48 hour processing start",p3f3:"Detailed analysis + consultation call",p3f4:"Dedicated case manager",p3f5:"Phone & email support"},
+  process:{title:"How It Works",sub:"Our simple 4-step process gets you your GCMS notes quickly and securely.",step1t:"Place Your Order",step1d:"Fill out our secure online form with your name, UCI/Application number, and select your service package.",step2t:"Provide Authorization",step2d:"We send you an authorization form (IMM 5744) to sign electronically so we can request on your behalf.",step3t:"We Submit to IRCC",step3d:"Our team submits your ATIP request directly to IRCC's Privacy Office and monitors the status.",step4t:"Receive Your Notes",step4d:"Once received from IRCC, we deliver your GCMS notes securely to your email within the promised timeframe."},
+  faq:{title:"Frequently Asked Questions"},
+  footer:{desc:"Professional ATIP and GCMS notes retrieval services for Canadian immigration applicants. Fast, secure, and reliable.",copy:"© 2024 GCMS Notes Canada. All rights reserved."},
+  settings:{sitename:"GCMS Notes Canada",tagline:"Fast • Reliable • Official",email:"support@gcmsnotes.ca",phone:"+1 (800) 123-4567",ctaTitle:"Ready to Know Where Your Application Stands?",ctaSub:"Join thousands of applicants who've used our service to understand their immigration file."}
+};
+
+let currentAdminTab = 'hero';
+
+// Load from storage
+async function loadData(){
+  try{
+    const r = await window.storage.get('gcms-site-data');
+    if(r && r.value) siteData = JSON.parse(r.value);
+  } catch(e){}
+  applyData();
+}
+
+async function saveData(){
+  try{ await window.storage.set('gcms-site-data',JSON.stringify(siteData)); }catch(e){}
+}
+
+function applyData(){
+  const d = siteData;
+  // Nav
+  document.getElementById('nav-site-name').childNodes[0].textContent = d.settings.sitename;
+  document.getElementById('nav-tagline').textContent = d.settings.tagline;
+  // Hero
+  document.getElementById('hero-title').innerHTML = d.hero.title;
+  document.getElementById('hero-sub').textContent = d.hero.sub;
+  document.getElementById('stat1').textContent = d.hero.stat1;
+  document.getElementById('stat2').textContent = d.hero.stat2;
+  document.getElementById('stat3').textContent = d.hero.stat3;
+  document.getElementById('stat4').textContent = d.hero.stat4;
+  // Services
+  document.getElementById('services-title').textContent = d.services.title;
+  document.getElementById('services-sub').textContent = d.services.sub;
+  ['1','2','3','4'].forEach(i=>{
+    document.getElementById('s'+i+'-title').textContent = d.services['s'+i+'t'];
+    document.getElementById('s'+i+'-desc').textContent = d.services['s'+i+'d'];
+    document.getElementById('s'+i+'-price').textContent = d.services['s'+i+'p'];
+  });
+  // Pricing
+  document.getElementById('pricing-title').textContent = d.pricing.title;
+  document.getElementById('pricing-sub').textContent = d.pricing.sub;
+  ['1','2','3'].forEach(i=>{
+    document.getElementById('p'+i+'-name').textContent = d.pricing['p'+i+'n'];
+    document.getElementById('p'+i+'-desc').textContent = d.pricing['p'+i+'d'];
+    document.getElementById('p'+i+'-price').textContent = d.pricing['p'+i+'p'];
+    for(let f=1;f<=5;f++){
+      const el = document.getElementById('p'+i+'-f'+f);
+      if(el && d.pricing['p'+i+'f'+f]) el.textContent = d.pricing['p'+i+'f'+f];
+    }
+  });
+  // Steps
+  document.getElementById('hiw-title').textContent = d.process.title;
+  document.getElementById('hiw-sub').textContent = d.process.sub;
+  ['1','2','3','4'].forEach(i=>{
+    document.getElementById('step'+i+'-title').textContent = d.process['step'+i+'t'];
+    document.getElementById('step'+i+'-desc').textContent = d.process['step'+i+'d'];
+  });
+  // Footer
+  document.getElementById('footer-desc').textContent = d.footer.desc;
+  document.getElementById('footer-copy').textContent = d.footer.copy;
+  // CTA
+  document.getElementById('cta-title').textContent = d.settings.ctaTitle;
+  document.getElementById('cta-sub').textContent = d.settings.ctaSub;
+}
+
+// ---- SCROLL ----
+function scrollTo(id){
+  const el = document.querySelector(id);
+  if(el) el.scrollIntoView({behavior:'smooth'});
+}
+
+// ---- ORDER MODAL ----
+function openOrder(plan){
+  document.getElementById('order-modal').classList.remove('hidden');
+  if(plan){
+    document.getElementById('selected-plan').textContent = plan;
+    const sel = document.getElementById('order-pkg');
+    for(let o of sel.options){ if(o.text.startsWith(plan)) sel.value = o.value; }
+  }
+}
+function closeOrder(){document.getElementById('order-modal').classList.add('hidden');}
+function submitOrder(){
+  document.getElementById('order-form-wrap').classList.add('hidden');
+  document.getElementById('order-success').classList.remove('hidden');
+  setTimeout(()=>{ closeOrder(); document.getElementById('order-form-wrap').classList.remove('hidden'); document.getElementById('order-success').classList.add('hidden'); },3000);
+}
+
+// ---- FAQ ----
+function toggleFaq(el){
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+
+// ---- ADMIN ----
+function openAdmin(){ document.getElementById('admin-login').classList.remove('hidden'); }
+function closeAdminLogin(){ document.getElementById('admin-login').classList.add('hidden'); }
+function checkAdminLogin(){
+  const pw = document.getElementById('admin-pw').value;
+  if(pw === 'admin123'){
+    document.getElementById('admin-login').classList.add('hidden');
+    document.getElementById('admin-panel').classList.remove('hidden');
+    renderAdminTab('hero');
+  } else {
+    document.getElementById('pw-error').style.display='block';
+  }
+}
+function closeAdminPanel(){ document.getElementById('admin-panel').classList.add('hidden'); }
+
+function adminTab(tab){
+  currentAdminTab = tab;
+  document.querySelectorAll('.admin-nav-item').forEach(el=>{
+    el.classList.toggle('active', el.textContent.toLowerCase().includes(tab.substring(0,4)));
+  });
+  renderAdminTab(tab);
+}
+
+function renderAdminTab(tab){
+  const c = document.getElementById('admin-content');
+  const d = siteData;
+  let html = '';
+
+  if(tab==='hero'){
+    html = `<div class="admin-section-title">Hero Section</div>
+    <div class="admin-field"><label>Main Title (HTML allowed)</label><textarea id="ae-hero-title">${d.hero.title}</textarea></div>
+    <div class="admin-field"><label>Subtitle Text</label><textarea id="ae-hero-sub">${d.hero.sub}</textarea></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem">
+      <div class="admin-field"><label>Stat 1 (Orders)</label><input id="ae-stat1" value="${d.hero.stat1}"></div>
+      <div class="admin-field"><label>Stat 2 (Delivery)</label><input id="ae-stat2" value="${d.hero.stat2}"></div>
+      <div class="admin-field"><label>Stat 3 (%)</label><input id="ae-stat3" value="${d.hero.stat3}"></div>
+      <div class="admin-field"><label>Stat 4 (Support)</label><input id="ae-stat4" value="${d.hero.stat4}"></div>
+    </div>
+    <button class="admin-save" onclick="saveHero()">Save Changes</button><span id="hero-saved" class="admin-saved hidden">✓ Saved!</span>`;
+  } else if(tab==='services'){
+    html = `<div class="admin-section-title">Services Section</div>
+    <div class="admin-field"><label>Section Title</label><input id="ae-stitle" value="${d.services.title}"></div>
+    <div class="admin-field"><label>Subtitle</label><textarea id="ae-ssub">${d.services.sub}</textarea></div>
+    ${[1,2,3,4].map(i=>`<div class="price-admin-card">
+      <h4>Service ${i}</h4>
+      <div class="admin-field"><label>Title</label><input id="ae-s${i}t" value="${d.services['s'+i+'t']}"></div>
+      <div class="admin-field"><label>Description</label><textarea id="ae-s${i}d">${d.services['s'+i+'d']}</textarea></div>
+      <div class="admin-field"><label>Price Label</label><input id="ae-s${i}p" value="${d.services['s'+i+'p']}"></div>
+    </div>`).join('')}
+    <button class="admin-save" onclick="saveServices()">Save Changes</button><span id="services-saved" class="admin-saved hidden">✓ Saved!</span>`;
+  } else if(tab==='pricing'){
+    html = `<div class="admin-section-title">Pricing Plans</div>
+    <div class="admin-field"><label>Section Title</label><input id="ae-ptitle" value="${d.pricing.title}"></div>
+    <div class="admin-field"><label>Subtitle</label><textarea id="ae-psub">${d.pricing.sub}</textarea></div>
+    ${[1,2,3].map(i=>`<div class="price-admin-card">
+      <h4>Plan ${i} ${i===2?'(Featured)':''}</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+        <div class="admin-field"><label>Plan Name</label><input id="ae-p${i}n" value="${d.pricing['p'+i+'n']}"></div>
+        <div class="admin-field"><label>Price (CAD)</label><input id="ae-p${i}p" value="${d.pricing['p'+i+'p']}"></div>
+      </div>
+      <div class="admin-field"><label>Description</label><input id="ae-p${i}d" value="${d.pricing['p'+i+'d']}"></div>
+      ${[1,2,3,4,5].map(f=>`<div class="admin-field"><label>Feature ${f}</label><input id="ae-p${i}f${f}" value="${d.pricing['p'+i+'f'+f]||''}"></div>`).join('')}
+    </div>`).join('')}
+    <button class="admin-save" onclick="savePricing()">Save Changes</button><span id="pricing-saved" class="admin-saved hidden">✓ Saved!</span>`;
+  } else if(tab==='process'){
+    html = `<div class="admin-section-title">How It Works</div>
+    <div class="admin-field"><label>Section Title</label><input id="ae-hiwtitle" value="${d.process.title}"></div>
+    <div class="admin-field"><label>Subtitle</label><textarea id="ae-hiwsub">${d.process.sub}</textarea></div>
+    ${[1,2,3,4].map(i=>`<div class="price-admin-card">
+      <h4>Step ${i}</h4>
+      <div class="admin-field"><label>Title</label><input id="ae-step${i}t" value="${d.process['step'+i+'t']}"></div>
+      <div class="admin-field"><label>Description</label><textarea id="ae-step${i}d">${d.process['step'+i+'d']}</textarea></div>
+    </div>`).join('')}
+    <button class="admin-save" onclick="saveProcess()">Save Changes</button><span id="process-saved" class="admin-saved hidden">✓ Saved!</span>`;
+  } else if(tab==='faq'){
+    html = `<div class="admin-section-title">FAQ Section</div>
+    <div class="admin-field"><label>Section Title</label><input id="ae-faqtitle" value="${d.faq.title}"></div>
+    <p style="color:#475569;font-size:.75rem;margin-bottom:1rem">FAQ questions are managed in the code. Contact support to add/edit specific Q&A pairs.</p>
+    <button class="admin-save" onclick="saveFaq()">Save Changes</button><span id="faq-saved" class="admin-saved hidden">✓ Saved!</span>`;
+  } else if(tab==='footer'){
+    html = `<div class="admin-section-title">Footer</div>
+    <div class="admin-field"><label>Footer Description</label><textarea id="ae-fdesc">${d.footer.desc}</textarea></div>
+    <div class="admin-field"><label>Copyright Text</label><input id="ae-fcopy" value="${d.footer.copy}"></div>
+    <button class="admin-save" onclick="saveFooter()">Save Changes</button><span id="footer-saved" class="admin-saved hidden">✓ Saved!</span>`;
+  } else if(tab==='settings'){
+    html = `<div class="admin-section-title">Site Settings</div>
+    <div class="admin-field"><label>Site Name</label><input id="ae-sitename" value="${d.settings.sitename}"></div>
+    <div class="admin-field"><label>Nav Tagline</label><input id="ae-tagline" value="${d.settings.tagline}"></div>
+    <div class="admin-field"><label>Support Email</label><input id="ae-email" value="${d.settings.email}"></div>
+    <div class="admin-field"><label>Phone Number</label><input id="ae-phone" value="${d.settings.phone}"></div>
+    <div class="admin-field"><label>CTA Banner Title</label><input id="ae-ctatitle" value="${d.settings.ctaTitle}"></div>
+    <div class="admin-field"><label>CTA Banner Subtitle</label><textarea id="ae-ctasub">${d.settings.ctaSub}</textarea></div>
+    <button class="admin-save" onclick="saveSettings()">Save Changes</button><span id="settings-saved" class="admin-saved hidden">✓ Saved!</span>`;
+  }
+  c.innerHTML = html;
+}
+
+function showSaved(id){ const el=document.getElementById(id); el.classList.remove('hidden'); setTimeout(()=>el.classList.add('hidden'),2000); }
+
+function saveHero(){
+  siteData.hero.title = document.getElementById('ae-hero-title').value;
+  siteData.hero.sub = document.getElementById('ae-hero-sub').value;
+  siteData.hero.stat1 = document.getElementById('ae-stat1').value;
+  siteData.hero.stat2 = document.getElementById('ae-stat2').value;
+  siteData.hero.stat3 = document.getElementById('ae-stat3').value;
+  siteData.hero.stat4 = document.getElementById('ae-stat4').value;
+  applyData(); saveData(); showSaved('hero-saved');
+}
+function saveServices(){
+  siteData.services.title = document.getElementById('ae-stitle').value;
+  siteData.services.sub = document.getElementById('ae-ssub').value;
+  [1,2,3,4].forEach(i=>{
+    siteData.services['s'+i+'t'] = document.getElementById('ae-s'+i+'t').value;
+    siteData.services['s'+i+'d'] = document.getElementById('ae-s'+i+'d').value;
+    siteData.services['s'+i+'p'] = document.getElementById('ae-s'+i+'p').value;
+  });
+  applyData(); saveData(); showSaved('services-saved');
+}
+function savePricing(){
+  siteData.pricing.title = document.getElementById('ae-ptitle').value;
+  siteData.pricing.sub = document.getElementById('ae-psub').value;
+  [1,2,3].forEach(i=>{
+    siteData.pricing['p'+i+'n'] = document.getElementById('ae-p'+i+'n').value;
+    siteData.pricing['p'+i+'p'] = document.getElementById('ae-p'+i+'p').value;
+    siteData.pricing['p'+i+'d'] = document.getElementById('ae-p'+i+'d').value;
+    [1,2,3,4,5].forEach(f=>{
+      const el = document.getElementById('ae-p'+i+'f'+f);
+      if(el) siteData.pricing['p'+i+'f'+f] = el.value;
+    });
+  });
+  applyData(); saveData(); showSaved('pricing-saved');
+}
+function saveProcess(){
+  siteData.process.title = document.getElementById('ae-hiwtitle').value;
+  siteData.process.sub = document.getElementById('ae-hiwsub').value;
+  [1,2,3,4].forEach(i=>{
+    siteData.process['step'+i+'t'] = document.getElementById('ae-step'+i+'t').value;
+    siteData.process['step'+i+'d'] = document.getElementById('ae-step'+i+'d').value;
+  });
+  applyData(); saveData(); showSaved('process-saved');
+}
+function saveFaq(){
+  siteData.faq.title = document.getElementById('ae-faqtitle').value;
+  applyData(); saveData(); showSaved('faq-saved');
+}
+function saveFooter(){
+  siteData.footer.desc = document.getElementById('ae-fdesc').value;
+  siteData.footer.copy = document.getElementById('ae-fcopy').value;
+  applyData(); saveData(); showSaved('footer-saved');
+}
+function saveSettings(){
+  siteData.settings.sitename = document.getElementById('ae-sitename').value;
+  siteData.settings.tagline = document.getElementById('ae-tagline').value;
+  siteData.settings.email = document.getElementById('ae-email').value;
+  siteData.settings.phone = document.getElementById('ae-phone').value;
+  siteData.settings.ctaTitle = document.getElementById('ae-ctatitle').value;
+  siteData.settings.ctaSub = document.getElementById('ae-ctasub').value;
+  applyData(); saveData(); showSaved('settings-saved');
+}
+
+// Close on overlay click
+document.getElementById('order-modal').addEventListener('click',function(e){ if(e.target===this) closeOrder(); });
+
+loadData();
+</script>
+</body>
+</html>
